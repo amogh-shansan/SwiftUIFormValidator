@@ -1,0 +1,38 @@
+name: Deploy Swift-DocC to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-docs:
+    runs-on: macos-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🔨 Build documentation archive
+        run: |
+          xcodebuild docbuild \
+            -scheme SwiftUIFormValidator \
+            -destination 'platform=macOS' \
+            -derivedDataPath docsDerivedData
+
+      - name: 🌐 Convert DocC archive to static site
+        run: |
+          xcrun docc convert \
+            docsDerivedData/Build/Products/Debug/SwiftUIFormValidator.doccarchive \
+            --output-path docs \
+            --transform-for-static-hosting \
+            --hosting-base-path SwiftUIFormValidator \
+            --fallback-display-name SwiftUIFormValidator \
+            --fallback-bundle-identifier com.shansan.SwiftUIFormValidator \
+            --fallback-bundle-version 1.0
+
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
