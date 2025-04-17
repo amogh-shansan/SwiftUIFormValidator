@@ -1,0 +1,1 @@
+struct SignupApp {} // Replace with actual signup SwiftUI code

@@ -1,0 +1,1 @@
+struct DemoApp {} // Replace with actual demo SwiftUI code
