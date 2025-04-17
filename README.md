@@ -1,40 +1,82 @@
-# SwiftUIFormValidator (Full Package + Docs + Demos)
+# SwiftUIFormValidator
 
-A reusable, protocol-based Swift package for form validation in SwiftUI with DocC documentation and demo apps.
+![GitHub Pages](https://github.com/amogh-shansan/SwiftUIFormValidator/actions/workflows/deploy-docs.yml/badge.svg)
 
-## 📦 How to Use
+A reusable, protocol-based Swift package for form validation in SwiftUI. Includes full DocC documentation and demo apps.
 
-### 1. Push this to a new GitHub repo:
-```bash
-git init
-git remote add origin https://github.com/YOUR_USERNAME/SwiftUIFormValidator.git
-git add .
-git commit -m "Initial commit: package + docs + demo"
-git push -u origin main
+---
+
+## 📦 Installation
+
+Add the following to your Xcode project using **Swift Package Manager**:
+
+```
+https://github.com/amogh-shansan/SwiftUIFormValidator.git
 ```
 
-### 2. Generate Docs Locally (Optional)
-```bash
-swift package generate-documentation \
-  --target SwiftUIFormValidator \
-  --disable-indexing \
-  --output-path docs \
-  --transform-for-static-hosting \
-  --hosting-base-path SwiftUIFormValidator
+Supports:
+
+- iOS 15.0+
+- macOS 10.15+
+
+---
+
+## 🚀 Features
+
+- ✅ `ValidationRule` protocol for custom validators
+- 📦 Built-in rules: `NonEmptyRule`, `EmailFormatRule`, `MinLengthRule`, `MatchFieldRule`
+- 🧠 Central `FormValidator` class to manage form values & errors
+- 🔁 Live validation on change or submit
+- 🧪 Fully testable and modular
+
+---
+
+## 🛠 Usage
+
+```swift
+import SwiftUIFormValidator
+
+@StateObject private var validator = FormValidator()
+
+.onAppear {
+    validator.setRules(for: "email", rules: [
+        AnyValidationRule(NonEmptyRule()),
+        AnyValidationRule(EmailFormatRule())
+    ])
+}
 ```
 
-### 3. Publish to `gh-pages`:
-```bash
-git switch --orphan gh-pages
-rm -rf *
-cp -R docs/* .
-git add .
-git commit -m "Publish documentation"
-git push origin gh-pages --force
-```
+---
 
-### 4. Enable GitHub Pages:
-- Go to your GitHub repo → **Settings → Pages**
-- Set branch = `gh-pages`, folder = `/root`
-- Your docs will be live at:  
-  `https://yourusername.github.io/SwiftUIFormValidator`
+## 📚 Documentation
+
+Latest docs: [https://amogh-shansan.github.io/SwiftUIFormValidator/](https://amogh-shansan.github.io/SwiftUIFormValidator/)
+
+Published using GitHub Actions and Swift-DocC.
+
+---
+
+## 💻 Demo Apps
+
+| Demo       | Description                          |
+|------------|--------------------------------------|
+| `DemoApp`  | Minimal login screen with validation |
+| `SignupApp`| Styled signup form with error styling and live validation |
+
+These apps are in the root folder for reference.
+
+---
+
+## 🛠 GitHub Pages Deployment
+
+This repo uses a GitHub Action (`deploy-docs.yml`) to auto-publish documentation to the `gh-pages` branch on every push to `main`.
+
+---
+
+## 🧾 License
+
+MIT
+
+---
+
+Built with ❤️ by [@amogh-shansan](https://github.com/amogh-shansan)
